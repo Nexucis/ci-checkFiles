@@ -10,7 +10,7 @@ CI-CheckFiles
 
 ## Overview
 
-This project provide a docker images with two scripts to check the encoding file and the end-of-line of the file in a project. This image can be used in a continuous integration system like **circle-ci** or **gitlab-ci**. 
+This project provides a docker images with two scripts to check the encoding file and the end-of-line of the file in a project. This image can be used in a continuous integration system like **circle-ci** or **gitlab-ci**. 
 
 The image is available on [docker hub](https://hub.docker.com/r/nexucis/ci-checkfiles/)
 
