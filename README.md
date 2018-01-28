@@ -43,7 +43,7 @@ This image is designed to work in a continuous integration system. So you could 
 
 ### Circle-CI
 
-The example below show a simple circle-ci configuration files **.circleci/config.yml**.
+The example below show a simple circle-ci configuration files **.circleci/config.yml** who show how to use the two tools describe in a previous section
 
 ```yaml
 version: 2
