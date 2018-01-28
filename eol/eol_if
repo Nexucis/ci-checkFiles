@@ -2,7 +2,7 @@
 
 result=0;
 
-for file in $1; do
+for file in $@; do
     if [[ -n $(dos2unix --info=c "$file") ]] ; then
         echo "the file $1 have DOS EOL"
         result=1;
