@@ -9,6 +9,8 @@ RUN apt-get update && \
                 gzip \
                 dos2unix \
                 openssh-client \
+                uchardet \
+                libuchardet-dev \
                 ca-certificates && \
         apt-get autoremove -y && \
         apt-get clean && \
@@ -16,4 +18,6 @@ RUN apt-get update && \
 
 COPY eol/eol_if /bin/eol_if
 COPY eol/checkEOL.sh /bin/checkEOL
-RUN chmod +x /bin/eol_if /bin/checkEOL
+COPY encoding/encoding_if /bin/encoding_if
+COPY encoding/checkEncoding.sh /bin/checkEncoding
+RUN chmod +x /bin/eol_if /bin/checkEOL /bin/encoding_if /bin/checkEncoding
