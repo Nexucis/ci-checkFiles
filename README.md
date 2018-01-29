@@ -7,6 +7,7 @@ CI-CheckFiles
 3. [Do the same in continuous integration](#do-the-same-in-continuous-integration)
    1. [Circle-CI](#circle-ci)
    2. [Gitlab-CI](#gitlab-ci)
+4. [Run the script without docker](#run-the-script-without-docker)
 4. [Contributions](#contributions)
 5. [License](#license)
 
@@ -19,9 +20,10 @@ The image is available on [docker hub](https://hub.docker.com/r/nexucis/ci-check
 ## Getting Started
 
 ### Check encoding
-The tool who does the job, named **checkEncoding** and took as a first parameter the encoding target to check. As the tool uses [uchardet](https://www.freedesktop.org/wiki/Software/uchardet/), we can have all supported encoding.
+The tool who does the job (named **checkEncoding**), tooks as a first parameter the encoding target to check. 
+As the tool uses [uchardet](https://www.freedesktop.org/wiki/Software/uchardet/), we can have all supported encoding by uchardet.
 
-As the second parameter, the tool take all files that you want to check. It can take a regex too.
+As the second parameter, the tool takes all files that you want to check. It can take a regex too.
 
 For example, you want to check if the files of your current project (let's say a Java project build with maven) is encoding in utf-8, you could use the tool like this: 
 
@@ -32,9 +34,9 @@ docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles /bin/bash
 ### Check end-of-line
 For the moment, the tool (named **checkEOL**) checks only if the files have an UNIX end-of-line.
 
-The tool take only one thing : the kind of document that you want to check.
+The tool takes only one thing : the kind of document that you want to check.
 
-If we take the same example used in the "Check encoding" section, we could use the tool like this:
+If we use the same example used in the "Check encoding" section, we could use the tool like this:
 
 ```bash
 docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles /bin/bash -c "cd /var/workspace/project && checkEOL *.md *.java *.xml"
@@ -94,6 +96,69 @@ analyze_encoding_utf8:
   image: nexucis/ci-checkfiles:dev-master
   script:
     - checkEncoding utf-8 *.md *.java *.xml *.json *.ts *.js
+```
+
+## Run the script without docker
+Docker bothering you ? You think that is overkill to use docker to run just to tiny script ? Here is the way to use it without docker.
+
+### checkEncoding
+
+#### Must have
+
+* a bash in version 4 to run this script
+
+```bash
+bash --version
+```
+
+* uchardet installed
+  
+```bash
+sudo apt-get update && apt-get install uchardet libuchardet-dev
+```
+
+> uchardet can be installed on Fedora, Gentoo and mac. Please see [the official documentation](https://www.freedesktop.org/wiki/Software/uchardet/) to learn about it
+
+#### Installation
+
+* Install the script in a `bin` directory : 
+
+```bash
+curl -s -XGET https://raw.githubusercontent.com/Nexucis/ci-checkFiles/master/encoding/encoding_if.sh > /usr/bin/encoding_if
+curl -s -XGET https://raw.githubusercontent.com/Nexucis/ci-checkFiles/master/encoding/checkEncoding.sh > /usr/bin/checkEncoding
+chmod +x /usr/bin/checkEncoding /usr/bin/encoding_if
+```
+
+* Use it and enjoy : 
+
+```bash
+cd /var/workspace/project && checkEncoding ascii *.java
+```
+
+### CheckEOL
+
+#### Must have
+
+* dos2unix with a version >= 7.1
+
+> Tips : 
+>>dos2unix with this version is available on ubuntu 17.10
+>> gitbash (at least last version, maybe older too) has dos2unix in 7.4.0
+
+#### Installation
+
+* Install the script in a `bin` directory : 
+
+```bash
+curl -s -XGET https://raw.githubusercontent.com/Nexucis/ci-checkFiles/master/eol/eol_if.sh > /usr/bin/eol_if
+curl -s -XGET https://raw.githubusercontent.com/Nexucis/ci-checkFiles/master/eol/checkEOL.sh > /usr/bin/checkEOL
+chmod +x /usr/bin/eol_if /usr/bin/checkEOL
+```
+
+* Use it and enjoy : 
+
+```bash
+cd /var/workspace/project && checkEOL *.java
 ```
 
 ## Contributions
