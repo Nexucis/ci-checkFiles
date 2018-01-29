@@ -99,7 +99,7 @@ analyze_encoding_utf8:
 ```
 
 ## Run the script without docker
-Docker bothering you ? You think that is overkill to use docker to run just to tiny script ? Here is the way to use it without docker.
+Docker bothering you ? You think that is overkill to use docker to run just two tiny script ? Here is the way to use it without docker.
 
 ### checkEncoding
 
