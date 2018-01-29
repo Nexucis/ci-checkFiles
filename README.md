@@ -1,6 +1,6 @@
 CI-CheckFiles
 =============
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![CircleCI](https://circleci.com/gh/Nexucis/ci-checkFiles.svg?style=shield)](https://circleci.com/gh/Nexucis/ci-checkFiles)[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 1. [Overview](#overview) 
 2. [Getting Started](#getting-started)
