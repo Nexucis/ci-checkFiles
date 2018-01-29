@@ -32,8 +32,18 @@ workflows:
             branches:
               only:
                 - master
-      - push-tag-docker:
+      - hold-push:
           type: approval
           filters:
             tags:
               only: /.*/
+            branches:
+              ignore: /.*/
+      - push-tag-docker:
+          requires:
+            - hold-push
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
