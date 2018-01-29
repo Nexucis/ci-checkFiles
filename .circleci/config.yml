@@ -26,13 +26,14 @@ jobs:
 workflows:
   version: 2
   build_and_push:
-    - build-push-docker:
-        filters:
-          branches:
-            only:
-              - master
-    - push-tag-docker:
-        type: approval
-        filters:
-          tags:
-            only: /.*/
+    jobs:
+      - build-push-docker:
+          filters:
+            branches:
+              only:
+                - master
+      - push-tag-docker:
+          type: approval
+          filters:
+            tags:
+              only: /.*/
