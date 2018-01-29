@@ -7,14 +7,15 @@ CI-CheckFiles
 3. [Do the same in continuous integration](#do-the-same-in-continuous-integration)
    1. [Circle-CI](#circle-ci)
    2. [Gitlab-CI](#gitlab-ci)
-   3. [Travis-ci](#travis-ci)
+   3. [Travis-CI](#travis-ci)
 4. [Run the script without docker](#run-the-script-without-docker)
 5. [Contributions](#contributions)
 6. [License](#license)
 
 ## Overview
 
-This project provides a docker images with two scripts to check the encoding file and the end-of-line of the file in a project. This image can be used in a continuous integration system like **circle-ci** or **gitlab-ci**. 
+This project provides a docker images with two scripts to check the encoding file and the end-of-line of the file in a project. 
+This image can be used in a continuous integration system like **circle-ci**, **gitlab-ci** or **travis-ci**. 
 
 The image is available on [docker hub](https://hub.docker.com/r/nexucis/ci-checkfiles/)
 
