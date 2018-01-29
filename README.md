@@ -5,8 +5,8 @@ CI-CheckFiles
 1. [Overview](#overview) 
 2. [Getting Started](#getting-started)
 3. [Do the same in continuous integration](#do-the-same-in-continuous-integration)
-   3.1 [Circle-CI](#circle-ci)
-   3.2 [Gitlab-CI](#gitlab-ci)
+   1. [Circle-CI](#circle-ci)
+   2. [Gitlab-CI](#gitlab-ci)
 4. [Contributions](#contributions)
 5. [License](#license)
 
