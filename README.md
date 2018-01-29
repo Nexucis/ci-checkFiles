@@ -26,7 +26,7 @@ As the second parameter, the tool take all files that you want to check. It can 
 For example, you want to check if the files of your current project (let's say a Java project build with maven) is encoding in utf-8, you could use the tool like this: 
 
 ```bash
-docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles cd /var/workspace/project && checkEncoding utf-8 *.md *.java *.xml
+docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.md *.java *.xml"
 ``` 
 
 ### Check end-of-line
@@ -37,7 +37,7 @@ The tool take only one thing : the kind of document that you want to check.
 If we take the same example used in the "Check encoding" section, we could use the tool like this:
 
 ```bash
-docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles cd /var/workspace/project && checkEOL *.md *.java *.xml
+docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles /bin/bash -c "cd /var/workspace/project && checkEOL *.md *.java *.xml"
 ``` 
 
 ## Do the same in continuous integration
