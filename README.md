@@ -8,8 +8,8 @@ CI-CheckFiles
    1. [Circle-CI](#circle-ci)
    2. [Gitlab-CI](#gitlab-ci)
 4. [Run the script without docker](#run-the-script-without-docker)
-4. [Contributions](#contributions)
-5. [License](#license)
+5. [Contributions](#contributions)
+6. [License](#license)
 
 ## Overview
 
@@ -143,6 +143,7 @@ cd /var/workspace/project && checkEncoding ascii *.java
 
 > Tips : 
 >>dos2unix with this version is available on ubuntu 17.10
+
 >> gitbash (at least last version, maybe older too) has dos2unix in 7.4.0
 
 #### Installation
