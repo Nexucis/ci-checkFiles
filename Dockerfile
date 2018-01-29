@@ -16,8 +16,8 @@ RUN apt-get update && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY eol/eol_if /bin/eol_if
+COPY eol/eol_if.sh /bin/eol_if
 COPY eol/checkEOL.sh /bin/checkEOL
-COPY encoding/encoding_if /bin/encoding_if
+COPY encoding/encoding_if.sh /bin/encoding_if
 COPY encoding/checkEncoding.sh /bin/checkEncoding
 RUN chmod +x /bin/eol_if /bin/checkEOL /bin/encoding_if /bin/checkEncoding
