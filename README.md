@@ -5,6 +5,8 @@ CI-CheckFiles
 1. [Overview](#overview) 
 2. [Getting Started](#getting-started)
 3. [Do the same in continuous integration](#do-the-same-in-continuous-integration)
+   3.1 [Circle-CI](#circle-ci)
+   3.2 [Gitlab-CI](#gitlab-ci)
 4. [Contributions](#contributions)
 5. [License](#license)
 
@@ -74,6 +76,25 @@ workflows:
 ```
 If you want to learn more about circle-ci please read [the official documentation](https://circleci.com/docs/2.0/)
 
+### Gitlab-ci
+Same example but with Gitlab-ci .
+
+```yaml
+stages:
+  - analyze
+
+analyze_eol:
+  stage: analyze
+  image: nexucis/ci-checkfiles:dev-master
+  script:
+    - checkEOL *.md *.java *.xml *.json *.ts *.js
+
+analyze_encoding_utf8:
+  stage: analyze
+  image: nexucis/ci-checkfiles:dev-master
+  script:
+    - checkEncoding utf-8 *.md *.java *.xml *.json *.ts *.js
+```
 
 ## Contributions
 If you want to improve this image, feel free to use the Issue section or to send a pull request. Both of them will be appreciated.
