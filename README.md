@@ -117,7 +117,7 @@ script:
   - docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.md *.java *.xml"
 ```
 
-*The example below is based on the [official documentation](https://docs.travis-ci.com/user/docker/) when we want to use docker with travis-ci*
+*The example above is based on the [official documentation](https://docs.travis-ci.com/user/docker/) when we want to use docker with travis-ci*
 
 ## Run the script without docker
 Docker bothering you ? You think that is overkill to use docker to run just two tiny script ? Here is the way to use it without docker.
