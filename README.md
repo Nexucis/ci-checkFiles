@@ -57,7 +57,7 @@ version: 2
 jobs:
   analyze_eol:
     docker:
-      - image: nexucis/ci-checkfiles:dev-master
+      - image: nexucis/ci-checkfiles
     working_directory: ~/repo
     steps:
       - checkout
@@ -65,7 +65,7 @@ jobs:
       
   analyze_encoding_utf8:
     docker:
-      - image: nexucis/ci-checkfiles:dev-master
+      - image: nexucis/ci-checkfiles:
     working_directory: ~/repo
     steps:
       - checkout
@@ -89,13 +89,13 @@ stages:
 
 analyze_eol:
   stage: analyze
-  image: nexucis/ci-checkfiles:dev-master
+  image: nexucis/ci-checkfiles
   script:
     - checkEOL *.md *.java *.xml *.json *.ts *.js
 
 analyze_encoding_utf8:
   stage: analyze
-  image: nexucis/ci-checkfiles:dev-master
+  image: nexucis/ci-checkfiles
   script:
     - checkEncoding utf-8 *.md *.java *.xml *.json *.ts *.js
 ```
