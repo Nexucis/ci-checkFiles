@@ -25,8 +25,8 @@ testCheckEOLFailedExpected(){
        exit 1
     fi
     createSharedVolume
-    docker run --volumes-from ${l_docker_holding_volume} ${l_docker_image_base_name}:${docker_tag} /bin/bash -c "cd /var/workspace/project && checkEOL *.test"
     result=0
+    docker run --volumes-from ${l_docker_holding_volume} ${l_docker_image_base_name}:${docker_tag} /bin/bash -c "cd /var/workspace/project && checkEOL *.test"
     if [ $? != 0 ]; then
         echo "Good the check failed"
     else
@@ -46,8 +46,9 @@ testCheckEOLSuccessExpected(){
        exit 1
     fi
     createSharedVolume
-    docker run --volumes-from ${l_docker_holding_volume} ${l_docker_image_base_name}:${docker_tag} /bin/bash -c "cd /var/workspace/project && checkEOL *.md *.sh Dockerfile"
     result=0
+    echo "Starting test ..."
+    docker run --volumes-from ${l_docker_holding_volume} ${l_docker_image_base_name}:${docker_tag} /bin/bash -c "cd /var/workspace/project && checkEOL *.md *.sh Dockerfile"
     if [ $? == 0 ]; then
         echo "Good the check is success"
     else
@@ -68,8 +69,8 @@ testCheckEncodingFailedExpected(){
        exit 1
     fi
     createSharedVolume
-    docker run --volumes-from ${l_docker_holding_volume} ${l_docker_image_base_name}:${docker_tag} /bin/bash -c "cd /var/workspace/project && ls file-test/ && checkEncoding utf-8 *.test"
     result=0
+    docker run --volumes-from ${l_docker_holding_volume} ${l_docker_image_base_name}:${docker_tag} /bin/bash -c "cd /var/workspace/project && ls file-test/ && checkEncoding utf-8 *.test"
     if [ $? != 0 ]; then
         echo "Good the check failed"
     else
@@ -89,8 +90,8 @@ testCheckEncodingSuccessExpected(){
        exit 1
     fi
     createSharedVolume
-    docker run --volumes-from ${l_docker_holding_volume} ${l_docker_image_base_name}:${docker_tag} /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.md *.sh Dockerfile"
     result=0
+    docker run --volumes-from ${l_docker_holding_volume} ${l_docker_image_base_name}:${docker_tag} /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.md *.sh Dockerfile"
     if [ $? == 0 ]; then
         echo "Good the check is success"
     else
