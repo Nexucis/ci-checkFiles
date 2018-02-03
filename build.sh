@@ -3,7 +3,7 @@
 l_docker_image_base_name="nexucis/ci-checkfiles"
 l_initial_path=${PWD}
 l_default_tag="dev-master"
-l_default_alpine_tag="alpine-dev-master"
+l_default_alpine_tag="dev-master-alpine"
 
 copyBashScript(){
     docker_distrib=$1
