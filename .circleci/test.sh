@@ -26,12 +26,17 @@ testCheckEOLFailedExpected(){
     fi
     createSharedVolume
     docker run --volumes-from ${l_docker_holding_volume} ${l_docker_image_base_name}:${docker_tag} /bin/bash -c "cd /var/workspace/project && checkEOL *.test"
+    result=0
     if [ $? != 0 ]; then
         echo "Good the check failed"
     else
         echo "this test must fail"
-        exit 1
+        result=1
     fi
+
+    echo "removing shared volume and shared container"
+    removeSharedVolume
+    exit ${result}
 }
 
 testCheckEOLSuccessExpected(){
@@ -42,13 +47,17 @@ testCheckEOLSuccessExpected(){
     fi
     createSharedVolume
     docker run --volumes-from ${l_docker_holding_volume} ${l_docker_image_base_name}:${docker_tag} /bin/bash -c "cd /var/workspace/project && checkEOL *.md *.sh Dockerfile"
-
+    result=0
     if [ $? == 0 ]; then
         echo "Good the check is success"
     else
         echo "this test must not fail"
-        exit 1
+        result=1
     fi
+
+    echo "removing shared volume and shared container"
+    removeSharedVolume
+    exit ${result}
 }
 
 
@@ -60,12 +69,17 @@ testCheckEncodingFailedExpected(){
     fi
     createSharedVolume
     docker run --volumes-from ${l_docker_holding_volume} ${l_docker_image_base_name}:${docker_tag} /bin/bash -c "cd /var/workspace/project && ls file-test/ && checkEncoding utf-8 *.test"
+    result=0
     if [ $? != 0 ]; then
         echo "Good the check failed"
     else
         echo "this test must fail"
-        exit 1
+        result=1
     fi
+
+    echo "removing shared volume and shared container"
+    removeSharedVolume
+    exit ${result}
 }
 
 testCheckEncodingSuccessExpected(){
@@ -76,13 +90,17 @@ testCheckEncodingSuccessExpected(){
     fi
     createSharedVolume
     docker run --volumes-from ${l_docker_holding_volume} ${l_docker_image_base_name}:${docker_tag} /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.md *.sh Dockerfile"
-
+    result=0
     if [ $? == 0 ]; then
         echo "Good the check is success"
     else
         echo "this test must not fail"
-        exit 1
+        result=1
     fi
+
+    echo "removing shared volume and shared container"
+    removeSharedVolume
+    exit ${result}
 }
 
 case $1 in
@@ -101,6 +119,3 @@ case $1 in
     *)
     ;;
 esac
-
-echo "removing shared volume and shared container"
-removeSharedVolume
