@@ -8,26 +8,10 @@ jobs:
       - checkout
       - setup_remote_docker
       - run: ./build.sh --build-ubuntu
-      - run: docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master /bin/bash -c "cd /var/workspace/project && checkEOL *.md *.sh Dockerfile"
-      - run: docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.md *.sh Dockerfile"
-      - run: |
-          docker create -v /var/workspace/project --name container-holding-volume alpine:3.4 /bin/true
-          docker cp ./ container-holding-volume:/var/workspace/project
-          result=$(docker run --volumes-from container-holding-volume nexucis/ci-checkfiles:dev-master /bin/bash -c "cd /var/workspace/project && checkEOL *.test")
-          if [ ${result} != 0 ]; then
-            echo "Good the check failed"
-          else
-            echo "this test must fail"
-            exit 1
-          fi
-      - run: |
-          docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master /bin/bash -c "cd /var/workspace/project && ls file-test/ && checkEncoding utf-8 *.test"
-          if [ $? != 0 ]; then
-            echo "Good the check failed"
-          else
-            echo "this test must fail"
-            exit 1
-          fi
+      - run: .circleci/test.sh --test-eol-success "dev-master"
+      - run: .circleci/test.sh --test-encoding-success "dev-master"
+      - run: .circleci/test.sh --test-eol-failed "dev-master"
+      - run: .circleci/test.sh --test-encoding-failed "dev-master"
 
   build-push-ubuntu-image:
     docker:
