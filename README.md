@@ -10,14 +10,17 @@ CI-CheckFiles
    3. [Travis-CI](#travis-ci)
 4. [Run the script without docker](#run-the-script-without-docker)
 5. [Contributions](#contributions)
-6. [License](#license)
+6. [Changelog](#changelog)
+7. [License](#license)
 
 ## Overview
 
-This project provides a docker images with two scripts to check the encoding file and the end-of-line of the file in a project. 
-This image can be used in a continuous integration system like **circle-ci**, **gitlab-ci** or **travis-ci**. 
+This project provides two docker images (**ubuntu** and **alpine**) with two scripts to check the encoding file and the end-of-line of the file in a project.
+Both images can be seeing in the [**docker**](https://github.com/Nexucis/ci-checkFiles/tree/master/docker) directory
 
-The image is available on [docker hub](https://hub.docker.com/r/nexucis/ci-checkfiles/)
+These images can be used in a continuous integration system like **circle-ci**, **gitlab-ci** or **travis-ci**. 
+
+Finally all images are available on [docker hub](https://hub.docker.com/r/nexucis/ci-checkfiles/)
 
 ## Getting Started
 
@@ -185,6 +188,9 @@ cd /var/workspace/project && checkEOL *.java
 
 ## Contributions
 If you want to improve this image, feel free to use the Issue section or to send a pull request. Both of them will be appreciated.
+
+## Changelog
+[Changelog](./CHANGELOG.md)
 
 ## License
 [MIT](./LICENSE)
