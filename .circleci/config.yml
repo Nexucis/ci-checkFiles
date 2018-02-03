@@ -1,33 +1,85 @@
 version: 2
 jobs:
-  build-push-docker:
+  build-test-ubuntu-image:
     docker:
       - image: circleci/openjdk:8-jdk
     working_directory: ~/repo
     steps:
       - checkout
       - setup_remote_docker
-      - run: docker build -t nexucis/ci-checkfiles:dev-master ./
-      - run: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-      - run: docker push nexucis/ci-checkfiles:dev-master
+      - run: ./build.sh --build-ubuntu
+      - run: .circleci/test.sh --test-eol-success "dev-master"
+      - run: .circleci/test.sh --test-encoding-success "dev-master"
+      - run: .circleci/test.sh --test-eol-failed "dev-master"
+      - run: .circleci/test.sh --test-encoding-failed "dev-master"
+
+  build-push-ubuntu-image:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: ./build.sh --build-ubuntu
+      - run: ./build.sh --connect
+      - run: ./build.sh --push "dev-master"
+
+  build-test-alpine-image:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: ./build.sh --build-alpine
+      - run: .circleci/test.sh --test-eol-success "dev-master-alpine"
+      - run: .circleci/test.sh --test-encoding-success "dev-master-alpine"
+      - run: .circleci/test.sh --test-eol-failed "dev-master-alpine"
+      - run: .circleci/test.sh --test-encoding-failed "dev-master-alpine"
+
+  build-push-alpine-image:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: ./build.sh --build-alpine
+      - run: ./build.sh --connect
+      - run: ./build.sh --push "dev-master-alpine"
+
   push-tag-docker:
     docker:
       - image: circleci/openjdk:8-jdk
     working_directory: ~/repo
     steps:
       - setup_remote_docker
-      - run: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-      - run: docker pull nexucis/ci-checkfiles:dev-master
-      - run: docker tag nexucis/ci-checkfiles:dev-master nexucis/ci-checkfiles:${CIRCLE_TAG}
-      - run: docker tag nexucis/ci-checkfiles:dev-master nexucis/ci-checkfiles:latest
-      - run: docker push nexucis/ci-checkfiles:${CIRCLE_TAG}
-      - run: docker push nexucis/ci-checkfiles:latest
+      - run: ./build.sh --connect
+      - run: ./build.sh --tag "dev-master" ${CIRCLE_TAG}
+      - run: ./build.sh --tag "dev-master" latest
+      - run: ./build.sh --tag "dev-master-alpine" ${CIRCLE_TAG}-alpine
+      - run: ./build.sh --push latest
+      - run: ./build.sh --push ${CIRCLE_TAG}
+      - run: ./build.sh --push ${CIRCLE_TAG}-alpine
 
 workflows:
   version: 2
   build_and_push:
     jobs:
-      - build-push-docker:
+      - build-test-ubuntu-image
+      - build-test-alpine-image
+      - build-push-ubuntu-image:
+          requires:
+            - build-test-ubuntu-image
+            - build-test-alpine-image
+          filters:
+            branches:
+              only:
+                - master
+      - build-push-alpine-image:
+          requires:
+            - build-test-ubuntu-image
+            - build-test-alpine-image
           filters:
             branches:
               only:
