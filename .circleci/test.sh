@@ -4,7 +4,7 @@ l_docker_image_base_name="nexucis/ci-checkfiles"
 l_docker_holding_volume="container-holding-volume"
 
 createSharedVolume(){
-    docker create -v /var/workspace/project --name ${l_docker_holding_volume} alpine:3.4 /bin/true
+    docker create -v /var/workspace/project --name ${l_docker_holding_volume} alpine:3.7 /bin/true
     if [ $? != 0 ]; then
        echo "something wrong with the docker create cmd"
        exit 1
