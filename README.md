@@ -65,7 +65,7 @@ jobs:
       
   analyze_encoding_utf8:
     docker:
-      - image: nexucis/ci-checkfiles:
+      - image: nexucis/ci-checkfiles
     working_directory: ~/repo
     steps:
       - checkout
