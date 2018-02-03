@@ -43,12 +43,10 @@ build(){
 
 buildUbuntu(){
     build "ubuntu" ${l_default_tag}
-    exit $?
 }
 
 buildAlpine(){
     build "alpine" ${l_default_alpine_tag}
-    exit $?
 }
 
 # Pull the given tag
@@ -60,7 +58,10 @@ getDockerImage(){
     fi
 
     docker pull ${l_docker_image_base_name}:${l_initial_tag}
-    exit $?
+    if [ $? != 0 ]; then
+        echo "something wrong with the docker's command"
+        exit 1
+    fi
 }
 
 # Tag the image from an existing tag

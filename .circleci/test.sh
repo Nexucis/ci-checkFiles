@@ -10,12 +10,18 @@ createSharedVolume(){
        exit 1
     fi
     docker cp ./ ${l_docker_holding_volume}:/var/workspace/project
-    exit $?
+    if [ $? != 0 ]; then
+        echo "something wrong with the docker's command"
+        exit 1
+    fi
 }
 
 removeSharedVolume(){
     docker rm ${l_docker_holding_volume}
-    exit $?
+    if [ $? != 0 ]; then
+        echo "something wrong with the docker's command"
+        exit 1
+    fi
 }
 
 testCheckEOLFailedExpected(){
