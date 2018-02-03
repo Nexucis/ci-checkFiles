@@ -13,6 +13,11 @@ createSharedVolume(){
     exit $?
 }
 
+removeSharedVolume(){
+    docker rm ${l_docker_holding_volume}
+    exit $?
+}
+
 testCheckEOLFailedExpected(){
     docker_tag=$1
     if [ -z "${docker_tag}" ]; then
@@ -100,3 +105,6 @@ case $1 in
     *)
     ;;
 esac
+
+echo "removing shared volume and shared container"
+removeSharedVolume
