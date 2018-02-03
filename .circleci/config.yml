@@ -30,8 +30,8 @@ jobs:
       - checkout
       - setup_remote_docker
       - run: ./build.sh --build-alpine
-      - run: docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:alpine-dev-master /bin/bash -c "cd /var/workspace/project && checkEOL *.md *.sh Dockerfile"
-      - run: docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:alpine-dev-master /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.md *.sh Dockerfile"
+      - run: docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master-alpine /bin/bash -c "cd /var/workspace/project && checkEOL *.md *.sh Dockerfile"
+      - run: docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master-alpine /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.md *.sh Dockerfile"
 
   build-push-alpine-image:
     docker:
@@ -40,9 +40,9 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: ./build.sh --build-ubuntu
+      - run: ./build.sh --build-alpine
       - run: ./build.sh --connect
-      - run: ./build.sh --push "alpine-dev-master"
+      - run: ./build.sh --push "dev-master-alpine"
 
   push-tag-docker:
     docker:
@@ -50,12 +50,13 @@ jobs:
     working_directory: ~/repo
     steps:
       - setup_remote_docker
-      - run: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-      - run: docker pull nexucis/ci-checkfiles:dev-master
-      - run: docker tag nexucis/ci-checkfiles:dev-master nexucis/ci-checkfiles:${CIRCLE_TAG}
-      - run: docker tag nexucis/ci-checkfiles:dev-master nexucis/ci-checkfiles:latest
-      - run: docker push nexucis/ci-checkfiles:${CIRCLE_TAG}
-      - run: docker push nexucis/ci-checkfiles:latest
+      - run: ./build.sh --connect
+      - run: ./build.sh --tag "dev-master" ${CIRCLE_TAG}
+      - run: ./build.sh --tag "dev-master" latest
+      - run: ./build.sh --tag "dev-master-alpine" ${CIRCLE_TAG}-alpine
+      - run: ./build.sh --push latest
+      - run: ./build.sh --push ${CIRCLE_TAG}
+      - run: ./build.sh --push ${CIRCLE_TAG}-alpine
 
 workflows:
   version: 2
