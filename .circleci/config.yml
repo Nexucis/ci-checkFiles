@@ -12,8 +12,8 @@ jobs:
       - run: docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.md *.sh Dockerfile"
       - run: |
           docker create -v /var/workspace/project --name container-holding-volume alpine:3.4 /bin/true
-          docker cp ${PWD} container-holding-volume:/var/workspace/project
-          docker run --rm --volumes-from container-holding-volume nexucis/ci-checkfiles:dev-master /bin/bash -c "cd /var/workspace/project && ls file-test/ && checkEOL *.test"
+          docker cp ./ container-holding-volume:/var/workspace/project
+          docker run --volumes-from container-holding-volume nexucis/ci-checkfiles:dev-master /bin/bash -c "cd /var/workspace/project && ls && pwd && checkEOL *.test"
           if [ $? != 0 ]; then
             echo "Good the check failed"
           else
