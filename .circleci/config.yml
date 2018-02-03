@@ -10,6 +10,22 @@ jobs:
       - run: ./build.sh --build-ubuntu
       - run: docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master /bin/bash -c "cd /var/workspace/project && checkEOL *.md *.sh Dockerfile"
       - run: docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.md *.sh Dockerfile"
+      - run: |
+        docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master /bin/bash -c "cd /var/workspace/project && checkEOL *.test
+        if [ $? != 0 ]; then
+            echo "Good the check failed"
+        else
+            echo "this test must fail"
+            exit 1
+        fi
+      - run: |
+        docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.test
+        if [ $? != 0 ]; then
+            echo "Good the check failed"
+        else
+            echo "this test must fail"
+            exit 1
+        fi
 
   build-push-ubuntu-image:
     docker:
@@ -32,6 +48,22 @@ jobs:
       - run: ./build.sh --build-alpine
       - run: docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master-alpine /bin/bash -c "cd /var/workspace/project && checkEOL *.md *.sh Dockerfile"
       - run: docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master-alpine /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.md *.sh Dockerfile"
+      - run: |
+        docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master-alpine /bin/bash -c "cd /var/workspace/project && checkEOL *.test
+        if [ $? != 0 ]; then
+            echo "Good the check failed"
+        else
+            echo "this test must fail"
+            exit 1
+        fi
+      - run: |
+        docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master-alpine /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.test
+        if [ $? != 0 ]; then
+            echo "Good the check failed"
+        else
+            echo "this test must fail"
+            exit 1
+        fi
 
   build-push-alpine-image:
     docker:
