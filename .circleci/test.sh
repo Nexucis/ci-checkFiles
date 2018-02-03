@@ -76,7 +76,7 @@ testCheckEncodingFailedExpected(){
     fi
     createSharedVolume
     result=0
-    docker run --volumes-from ${l_docker_holding_volume} ${l_docker_image_base_name}:${docker_tag} /bin/bash -c "cd /var/workspace/project && ls file-test/ && checkEncoding utf-8 *.test"
+    docker run --volumes-from ${l_docker_holding_volume} ${l_docker_image_base_name}:${docker_tag} /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.test"
     if [ $? != 0 ]; then
         echo "Good the check failed"
     else
