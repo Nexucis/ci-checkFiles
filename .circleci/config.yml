@@ -13,8 +13,8 @@ jobs:
       - run: |
           docker create -v /var/workspace/project --name container-holding-volume alpine:3.4 /bin/true
           docker cp ./ container-holding-volume:/var/workspace/project
-          docker run --volumes-from container-holding-volume nexucis/ci-checkfiles:dev-master /bin/bash -c "cd /var/workspace/project && ls && pwd && checkEOL *.test"
-          if [ $? != 0 ]; then
+          result=$(docker run --volumes-from container-holding-volume nexucis/ci-checkfiles:dev-master /bin/bash -c "cd /var/workspace/project && checkEOL *.test")
+          if [ ${result} != 0 ]; then
             echo "Good the check failed"
           else
             echo "this test must fail"
