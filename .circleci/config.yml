@@ -7,7 +7,8 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: build.sh --build-ubuntu
+      - run: ./build.sh --build-ubuntu
+
   build-push-ubuntu-image:
     docker:
       - image: circleci/openjdk:8-jdk
@@ -15,9 +16,10 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: build.sh --build-ubuntu
-      - run: build.sh --connect
-      - run: build.sh --push "dev-master"
+      - run: ./build.sh --build-ubuntu
+      - run: ./build.sh --connect
+      - run: ./build.sh --push "dev-master"
+
   build-test-alpine-image:
     docker:
       - image: circleci/openjdk:8-jdk
@@ -25,7 +27,8 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: build.sh --build-alpine
+      - run: ./build.sh --build-alpine
+
   build-push-alpine-image:
     docker:
       - image: circleci/openjdk:8-jdk
@@ -33,9 +36,9 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: build.sh --build-ubuntu
-      - run: build.sh --connect
-      - run: build.sh --push "alpine-dev-master"
+      - run: ./build.sh --build-ubuntu
+      - run: ./build.sh --connect
+      - run: ./build.sh --push "alpine-dev-master"
 
   push-tag-docker:
     docker:
