@@ -5,6 +5,10 @@ l_docker_holding_volume="container-holding-volume"
 
 createSharedVolume(){
     docker create -v /var/workspace/project --name ${l_docker_holding_volume} alpine:3.4 /bin/true
+    if [ $? != 0 ]; then
+       echo "something wrong with the docker create cmd"
+       exit 1
+    fi
     docker cp ./ ${l_docker_holding_volume}:/var/workspace/project
     exit $?
 }
