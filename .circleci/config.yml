@@ -19,7 +19,7 @@ jobs:
             exit 1
           fi
       - run: |
-          docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.test
+          docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.test"
           if [ $? != 0 ]; then
             echo "Good the check failed"
           else
@@ -49,7 +49,7 @@ jobs:
       - run: docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master-alpine /bin/bash -c "cd /var/workspace/project && checkEOL *.md *.sh Dockerfile"
       - run: docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master-alpine /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.md *.sh Dockerfile"
       - run: |
-          docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master-alpine /bin/bash -c "cd /var/workspace/project && checkEOL *.test
+          docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master-alpine /bin/bash -c "cd /var/workspace/project && checkEOL *.test"
           if [ $? != 0 ]; then
             echo "Good the check failed"
           else
@@ -57,7 +57,7 @@ jobs:
             exit 1
           fi
       - run: |
-          docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master-alpine /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.test
+          docker run --rm -v ${PWD}:/var/workspace/project nexucis/ci-checkfiles:dev-master-alpine /bin/bash -c "cd /var/workspace/project && checkEncoding utf-8 *.test"
           if [ $? != 0 ]; then
             echo "Good the check failed"
           else
