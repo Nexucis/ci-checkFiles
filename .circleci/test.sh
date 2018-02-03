@@ -88,19 +88,15 @@ testCheckEncodingSuccessExpected(){
 case $1 in
     --test-eol-failed)
     testCheckEOLFailedExpected $2
-    shift
     ;;
     --test-eol-success)
     testCheckEOLSuccessExpected $2
-    shift
     ;;
     --test-encoding-failed)
     testCheckEncodingFailedExpected $2
-    shift
     ;;
     --test-encoding-success)
     testCheckEncodingSuccessExpected $2
-    shift
     ;;
     *)
     ;;
