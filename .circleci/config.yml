@@ -1,15 +1,42 @@
 version: 2
 jobs:
-  build-push-docker:
+  build-test-ubuntu-image:
     docker:
       - image: circleci/openjdk:8-jdk
     working_directory: ~/repo
     steps:
       - checkout
       - setup_remote_docker
-      - run: docker build -t nexucis/ci-checkfiles:dev-master ./
-      - run: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-      - run: docker push nexucis/ci-checkfiles:dev-master
+      - run: build.sh --build-ubuntu
+  build-push-ubuntu-image:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: build.sh --build-ubuntu
+      - run: build.sh --connect
+      - run: build.sh --push "dev-master"
+  build-test-alpine-image:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: build.sh --build-alpine
+  build-push-alpine-image:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: build.sh --build-ubuntu
+      - run: build.sh --connect
+      - run: build.sh --push "alpine-dev-master"
+
   push-tag-docker:
     docker:
       - image: circleci/openjdk:8-jdk
@@ -27,7 +54,20 @@ workflows:
   version: 2
   build_and_push:
     jobs:
-      - build-push-docker:
+      - build-test-ubuntu-image
+      - build-test-alpine-image
+      - build-push-ubuntu-image:
+          requires:
+            - build-test-ubuntu-image
+            - build-test-alpine-image
+          filters:
+            branches:
+              only:
+                - master
+      - build-push-alpine-image:
+          requires:
+            - build-test-ubuntu-image
+            - build-test-alpine-image
           filters:
             branches:
               only:
