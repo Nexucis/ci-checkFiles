@@ -138,7 +138,7 @@ bash --version
 * uchardet installed
   
 ```bash
-sudo apt-get update && apt-get install uchardet libuchardet-dev
+sudo apt-get update && sudo apt-get install uchardet libuchardet-dev
 ```
 
 > uchardet can be installed on Fedora, Gentoo and mac. Please see [the official documentation](https://www.freedesktop.org/wiki/Software/uchardet/) to learn about it
