@@ -1,6 +1,6 @@
 CI-CheckFiles
 =============
-[![CircleCI](https://circleci.com/gh/Nexucis/ci-checkFiles.svg?style=shield)](https://circleci.com/gh/Nexucis/ci-checkFiles) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![CircleCI](https://circleci.com/gh/Nexucis/ci-checkFiles.svg?style=shield)](https://circleci.com/gh/Nexucis/ci-checkFiles) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1a5a6c7c06cb430ba4098c5296491e4a)](https://www.codacy.com/app/Nexucis/ci-checkFiles?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nexucis/ci-checkFiles&amp;utm_campaign=Badge_Grade) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 1. [Overview](#overview) 
 2. [Getting Started](#getting-started)
